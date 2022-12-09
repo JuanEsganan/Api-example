@@ -23,16 +23,19 @@ class Location (BaseModel):
         ..., 
         min_length=1,
         max_length=50,
+        example="Cartago"
         )
     state: str = Field (
         ..., 
         min_length=1,
         max_length=50,
+        example="valle"
         )
     country: str = Field (
         ..., 
         min_length=1,
         max_length=50,
+        example="Colombia"
         )
 
 class Person (BaseModel):
@@ -53,6 +56,17 @@ class Person (BaseModel):
     )
     hair_color: Optional [HairColor] = Field (default=None)
     is_married: Optional [bool] = Field (default=None)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "first_name": "Juan",
+                "last_name": "Ganan",
+                "age": 28,
+                "hair_color": "black",
+                "is_married": True
+            }
+        }
 
 @app.get("/")
 def home():
