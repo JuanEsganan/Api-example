@@ -117,7 +117,7 @@ def create_person (person: Person = Body (...)):
     Parameters:
 
     -Request body parameter:
-    
+
         - **person: Person** -> A person model with firstname, lastname, age, hair color and marital status
 
     Returns a person model with firstname, lastname, age, hair color and marital status
@@ -129,8 +129,8 @@ def create_person (person: Person = Body (...)):
 @app.get (
     path="/person/detail",
     status_code=status.HTTP_200_OK,
-    tags=["Persons"]
-    
+    tags=["Persons"],
+    deprecated=True
 )
 
 def show_person(
