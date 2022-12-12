@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from pydantic import Field
 # fastApi
 from fastapi import FastAPI
-from fastapi import Body, Query, Path  
+from fastapi import Body, Query, Path, Form
 from fastapi import status
 
 
@@ -62,7 +62,6 @@ class PersonBase (BaseModel):
     hair_color: Optional [HairColor] = Field (default=None)
     is_married: Optional [bool] = Field (default=None)
 
-
 class Person (PersonBase):
 
     password: str = Field (
@@ -84,6 +83,9 @@ class Person (PersonBase):
 class PersonOut (PersonBase):
     pass
 
+class LoginOut (BaseModel):
+    username: str = Field (..., max_length=20, example="juanesss94")
+    message: str = Field (default="Login succesfully!")
     
 @app.get(
     path="/", 
@@ -163,3 +165,13 @@ def update_person (
     results.update(Location.dict())
 
     return results
+
+#post from frontend to backend
+@app.post (
+    path="/login",
+    response_model=LoginOut,
+    status_code=status.HTTP_200_OK
+)
+
+def login (username: str=Form (...), password: str = Form (...)):
+    return LoginOut (username=username)
